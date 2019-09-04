@@ -29,4 +29,4 @@ let places = [
 	}
 ]
 
-module.exports = places
+module.exports = (req, res) => res.send(places)
