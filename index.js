@@ -1,7 +1,7 @@
 const express = require('express')
 let app = express()
 
-app.get('/', (req, res) => res.send('Welcome to Airbnb API'))
+app.get('/', require('./controllers/root'))
 app.get('/places', (req, res) => {
 	res.send(
 		require('./getPlaces')
