@@ -1,8 +1,8 @@
-const Place = require('../models/place')
+const Type = require('../models/type')
 
 module.exports = (req, res) => {
 
-	Place.find({price: {$lte: req.query.max_price}})
+	Type.find({})
 	.then(data => res.send(data))
 	.catch(err => res.send(err))
 }
