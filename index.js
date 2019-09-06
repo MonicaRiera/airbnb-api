@@ -1,7 +1,11 @@
 const express = require('express')
 const database = require('./database')
+const bodyParser = require('body-parser')
 
 let app = express()
+
+app.use(bodyParser.urlencoded({extend: false}))
+app.use(bodyParser.json())
 
 app.get('/', require('./controllers/root'))
 app.get('/places', require('./controllers/getPlaces'))
