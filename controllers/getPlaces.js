@@ -29,6 +29,12 @@ const createPromise = (p) => {
 			p.image = p.images[0]
 			delete p.images
 			p.reviews = data.length
+			if (data.length) {
+				let sum = 0
+				data.forEach(r => sum += r.rating)
+				p.rating = sum / data.length
+				console.log(sum)
+			}
 			res(p)
 		})
  	})
