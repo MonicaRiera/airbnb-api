@@ -24,6 +24,8 @@ app.post('/users', require('./controllers/postUser'))
 app.get('/amenities', require('./controllers/getAmenities'))
 app.post('/amenities', require('./controllers/postAmenities'))
 
+app.post('/reviews', require('./controllers/postReviews'))
+
 app.listen(4000, () => {
 	console.log('Ready on port 4000')
 })
