@@ -45,12 +45,12 @@ const Place = mongoose.model('place', {
 	type: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'type'
-	}
+	},
 	// rating: {
 	// 	type: Number,
 	// 	default: 0
 	// },
-	// images: [String]
+	images: [String]
 })
 
 module.exports = Place
