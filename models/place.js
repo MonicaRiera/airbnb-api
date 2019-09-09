@@ -38,10 +38,10 @@ const Place = mongoose.model('place', {
 		type: Number,
 		required: [true, 'Price is required']
 	},
-	reviews: {[
+	reviews: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'review'
-	]},
+	}],
 	title: {
 		type: String,
 		required: [true, 'Title is required']
@@ -50,7 +50,7 @@ const Place = mongoose.model('place', {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'type',
 		required: [true, 'Type is required']
-	},	
+	},
 	rating: {
 		type: Number,
 		default: 0
