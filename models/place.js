@@ -38,24 +38,19 @@ const Place = mongoose.model('place', {
 		type: Number,
 		required: [true, 'Price is required']
 	},
-	reviews: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'review'
-	}],
 	title: {
 		type: String,
 		required: [true, 'Title is required']
 	},
 	type: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'type',
-		required: [true, 'Type is required']
-	},
-	rating: {
-		type: Number,
-		default: 0
-	},
-	images: [String]
+		ref: 'type'
+	}
+	// rating: {
+	// 	type: Number,
+	// 	default: 0
+	// },
+	// images: [String]
 })
 
 module.exports = Place
