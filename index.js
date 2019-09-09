@@ -18,7 +18,12 @@ app.delete('/places/:id', require('./controllers/deletePlace'))
 
 app.get('/types', require('./controllers/getTypes'))
 app.post('/type', require('./controllers/postType'))
+
 app.post('/users', require('./controllers/postUser'))
+
+app.get('/amenities', require('./controllers/getAmenities'))
+app.post('/amenities', require('./controllers/postAmenities'))
+
 app.listen(4000, () => {
 	console.log('Ready on port 4000')
 })
