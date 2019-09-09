@@ -33,7 +33,6 @@ const createPromise = (p) => {
 				let sum = 0
 				data.forEach(r => sum += r.rating)
 				p.rating = sum / data.length
-				console.log(sum)
 			}
 			res(p)
 		})

@@ -9,8 +9,6 @@ const findReviews = (place) => {
 				let sum = 0
 				reviews.forEach(r => sum += r.rating)
 				place.rating = sum / reviews.length
-				console.log(sum)
-				console.log(place)
 			}
 			res(place)
 		})
