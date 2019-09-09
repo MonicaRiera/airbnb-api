@@ -1,18 +1,17 @@
 const mongoose = require('mongoose')
 
 const Place = mongoose.model('place', {
-	title: {
-		type: String,
-		required: [true, 'Title is required']
-	},
-	description: {
-		type: String,
-		required: [true, 'Description is required']
-	},
-	type: {
+	amenities: [{
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'type',
-		required: [true, 'Type is required']
+		ref: 'amenity'
+	}],
+	bathrooms: {
+		type: Number,
+		required: [true, 'Number of bathrooms is required']
+	},
+	bedrooms: {
+		type: Number,
+		required: [true, 'Number of bedrooms is required']
 	},
 	city: {
 		type: String,
@@ -22,31 +21,41 @@ const Place = mongoose.model('place', {
 		type: String,
 		required: [true, 'Country is required']
 	},
-	price: {
-		type: Number,
-		required: [true, 'Price is required']
-	},
-	rating: {
-		type: Number,
-		default: 0
+	description: {
+		type: String,
+		required: [true, 'Description is required']
 	},
 	guests: {
 		type: Number,
 		required: [true, 'Number of guests is required']
 	},
-	bathrooms: {
-		type: Number,
-		required: [true, 'Number of bathrooms is required']
-	},
 	host: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'user'
+		ref: 'user',
+		required: [true, 'Host is required']
 	},
-	images: [String],
-	amenities: [{
+	price: {
+		type: Number,
+		required: [true, 'Price is required']
+	},
+	reviews: {[
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'amenity'
-	}]
+		ref: 'review'
+	]},
+	title: {
+		type: String,
+		required: [true, 'Title is required']
+	},
+	type: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'type',
+		required: [true, 'Type is required']
+	},	
+	rating: {
+		type: Number,
+		default: 0
+	},
+	images: [String]
 })
 
 module.exports = Place
