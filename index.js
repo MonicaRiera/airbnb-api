@@ -25,6 +25,7 @@ app.get('/amenities', require('./controllers/getAmenities'))
 app.post('/amenities', require('./controllers/postAmenities'))
 
 app.post('/reviews', require('./controllers/postReviews'))
+app.get('/reviews/:id', require('./controllers/getReviews'))
 
 app.listen(4000, () => {
 	console.log('Ready on port 4000')
