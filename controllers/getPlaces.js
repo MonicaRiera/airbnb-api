@@ -1,6 +1,5 @@
 const Place = require('../models/place')
 const Review = require('../models/review')
-let promises = []
 
 const checkFilters = (req) => {
 	filter = {}
@@ -12,43 +11,59 @@ const checkFilters = (req) => {
 	}
 	return filter
 }
-
-const loopPlaces = (places) => {
-	return new Promise((res, rej) => {
-		places.forEach(p => {
-			promises.push(createPromise(p))
-		})
-		res(promises)
+// const loopPlaces = (places) => {
+// 	// return new Promise((res, rej) => {
+// 		places.forEach(place => {
+// 			promises.push(getReviews(place))
+// 		})
+// 		// res(promises)
+// 	// })
+// }
+const getReviews = (p) => {
+	return Review.find({place: p._id}).lean()
+	.then(reviews => {
+		p.img = p.images[0]
+		delete p.images
+		p.reviews = reviews.length
+		p.rating = 0
+		if (reviews.length) {
+			let sum = 0
+			reviews.forEach(r => sum += r.rating)
+			p.rating = Math.round(sum / reviews.length)
+		}
+		return p
 	})
-}
-
-const createPromise = (p) => {
-	return new Promise((res, rej) => {
-		Review.find({place: p._id}).lean()
-		.then(data => {
-			p.image = p.images[0]
-			delete p.images
-			p.reviews = data.length
-			if (data.length) {
-				let sum = 0
-				data.forEach(r => sum += r.rating)
-				p.rating = sum / data.length
-			}
-			res(p)
-		})
- 	})
 }
 
 module.exports = (req, res) => {
 	let filter = checkFilters(req)
 
-	Place.find(filter).select('bedrooms city country images price title type').populate('type').lean()
+	Place.find(filter).select('title images type bedrooms city country price').populate('type').lean()
 	.then(data => {
-		loopPlaces(data)
-		.then(promises => {
-			Promise.all(promises)
-			.then(places => res.send(places))
+		let promises = data.map(d => {
+			return getReviews(d)
 		})
+		Promise.all(promises)
+		.then(places => res.send(places))
 	})
 	.catch(err => res.send(err))
+
+
+// Place.find(filter)
+// .select('-amenities -images')
+// .then(data => {
+// 	let places = data.map(place => {
+// 		return Review.find({place: place._id})
+// 		.then(reviews => {
+// 			place.reviews = reviews.length
+// 			return place
+// 		})
+// 	})
+// 	Promise.all(places).then(data => {
+// 		res.send(data)
+// 	})
+// }).catch(err => {
+// 	res.send(err)
+// })
+
 }

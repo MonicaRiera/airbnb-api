@@ -1,8 +1,10 @@
 const express = require('express')
 const database = require('./database')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 let app = express()
+app.use(cors({credentials: true}))
 
 app.use(bodyParser.urlencoded({extend: false}))
 app.use(bodyParser.json())
@@ -19,6 +21,7 @@ app.delete('/places/:id', require('./controllers/deletePlace'))
 app.get('/types', require('./controllers/getTypes'))
 app.post('/type', require('./controllers/postType'))
 
+app.get('/users', require('./controllers/getUsers'))
 app.post('/users', require('./controllers/postUser'))
 
 app.get('/amenities', require('./controllers/getAmenities'))
