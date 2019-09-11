@@ -1,24 +1,27 @@
 const Place = require('../models/place')
 const Review = require('../models/review')
+const Type = require('../models/type')
 
 const checkFilters = (req) => {
 	filter = {}
+	if (req.query.type) {
+		filter = {type: req.query.type}
+	}
 	if (req.query.max_price) {
 		filter.price = {$lte: req.query.max_price}
 	}
 	if (req.query.min_guests) {
 		filter.guests = {$gte: req.query.min_guests}
 	}
+	if (req.query.min_rooms) {
+		filter.bedrooms = {$gte: req.query.min_rooms}
+	}
+	if (req.query.text) {
+		filter.title = {$regex: req.query.text, $options: 'i'}
+	}
 	return filter
 }
-// const loopPlaces = (places) => {
-// 	// return new Promise((res, rej) => {
-// 		places.forEach(place => {
-// 			promises.push(getReviews(place))
-// 		})
-// 		// res(promises)
-// 	// })
-// }
+
 const getReviews = (p) => {
 	return Review.find({place: p._id}).lean()
 	.then(reviews => {
@@ -47,23 +50,4 @@ module.exports = (req, res) => {
 		.then(places => res.send(places))
 	})
 	.catch(err => res.send(err))
-
-
-// Place.find(filter)
-// .select('-amenities -images')
-// .then(data => {
-// 	let places = data.map(place => {
-// 		return Review.find({place: place._id})
-// 		.then(reviews => {
-// 			place.reviews = reviews.length
-// 			return place
-// 		})
-// 	})
-// 	Promise.all(places).then(data => {
-// 		res.send(data)
-// 	})
-// }).catch(err => {
-// 	res.send(err)
-// })
-
 }
