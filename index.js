@@ -32,6 +32,7 @@ app.get('/reviews/:id', require('./controllers/getReviews'))
 
 app.post('/signup', require('./controllers/signup'))
 app.post('/login', require('./controllers/login'))
+app.get('/auth', require('./controllers/auth'))
 
 app.listen(4000, () => {
 	console.log('Ready on port 4000')
