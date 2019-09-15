@@ -3,12 +3,12 @@ const jwt = require('jsonwebtoken')
 
 module.exports = (req, res) => {
 
-	User.findOne({email: req.body.email}).select('email password')
+	User.findOne({email: req.body.email}).select('name email password avatar location')
 	.then(data => {
 		if(data.password == req.body.password) {
 			let object = data.toObject()
 			let token = jwt.sign(object, 'randomCharacters')
-			res.send(token)
+			res.send({token: token})
 		} else {
 			res.send('WRONG PASSWORD')
 		}
