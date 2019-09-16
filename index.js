@@ -25,7 +25,7 @@ app.post('/types', require('./controllers/postType'))
 
 app.get('/users', require('./controllers/getUsers'))
 app.post('/users', require('./controllers/postUser'))
-//app.patch('/users', require('./controllers/patchUser'))
+app.patch('/users', require('./controllers/patchUser'))
 
 app.get('/amenities', require('./controllers/getAmenities'))
 app.post('/amenities', require('./controllers/postAmenities'))
@@ -36,7 +36,6 @@ app.get('/reviews/:id', require('./controllers/getReviews'))
 app.post('/signup', require('./controllers/signup'))
 app.post('/login', require('./controllers/login'))
 app.get('/auth', require('./controllers/auth'))
-//app.post('/reviews'), require('./controllers/postReview')
 
 app.listen(process.env.PORT, () => {
 	console.log('Ready on port '+ process.env.PORT)

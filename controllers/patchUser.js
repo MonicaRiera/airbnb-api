@@ -7,14 +7,24 @@ module.exports = (req, res) => {
 
 	User.findById(user._id)
 	.then(data => {
-		if (req.body.like) {
-			console.log('data.likes', data.likes);
-			console.log('req.body', req.body);
-			data.likes.includes(req.body.like) ?
-			data.likes.splice(data.likes.indexOf(req.body.like)) :
-			data.likes.push(req.body.like)
+
+		if (req.body.place) {
+
+			let likes = data.likes
+
+			likes.includes(req.body.place) ?
+			likes.splice(likes.indexOf(req.body.place), 1) :
+			likes.push(req.body.place)
+
+			User.findByIdAndUpdate({_id: user._id}, {likes: likes})
+			.then(updatedUser => {
+				let object = updatedUser.toObject()
+				let token = jwt.sign(object, process.env.SECRET)
+				res.send({token: token})
+			})
 		}
-		res.send(data)
+
 	})
 	.catch(err => res.send(err))
+
 }
