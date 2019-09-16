@@ -2,6 +2,7 @@ const express = require('express')
 const database = require('./database')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+require('dotenv').config()
 
 let app = express()
 app.use(cors({credentials: true}))
@@ -23,6 +24,7 @@ app.post('/types', require('./controllers/postType'))
 
 app.get('/users', require('./controllers/getUsers'))
 app.post('/users', require('./controllers/postUser'))
+app.patch('/users', require('./controllers/patchUser'))
 
 app.get('/amenities', require('./controllers/getAmenities'))
 app.post('/amenities', require('./controllers/postAmenities'))
@@ -35,6 +37,6 @@ app.post('/login', require('./controllers/login'))
 app.get('/auth', require('./controllers/auth'))
 //app.post('/reviews'), require('./controllers/postReview')
 
-app.listen(4000, () => {
-	console.log('Ready on port 4000')
+app.listen(process.env.PORT, () => {
+	console.log('Ready on port '+ process.env.PORT)
 })

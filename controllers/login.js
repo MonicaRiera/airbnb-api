@@ -7,7 +7,7 @@ module.exports = (req, res) => {
 	.then(data => {
 		if(data.password == req.body.password) {
 			let object = data.toObject()
-			let token = jwt.sign(object, 'randomCharacters')
+			let token = jwt.sign(object, process.env.SECRET)
 			res.send({token: token})
 		} else {
 			res.send('WRONG PASSWORD')

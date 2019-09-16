@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
-// let connection = 'mongodb+srv://Monica:Mr3141592021213@cluster0-ypjhv.mongodb.net/sample_airbnb?retryWrites=true&w=majority'
-let connection = 'mongodb://localhost:27017/airbnb'
+// let connection = 'mongodb+srv://${process.env.MONGO_ATLAS}@cluster0-ypjhv.mongodb.net/sample_airbnb?retryWrites=true&w=majority'
+let connection = process.env.DB_URL
 
 mongoose.connect(connection, {useNewUrlParser:true}, (err) => {
 	if (err) {

@@ -8,7 +8,7 @@ module.exports = (req, res) => {
 		} else {
 			User.create(req.body).then(data => {
 				let object = data.toObject()
-				let token = jwt.sign(object, 'randomCharacters')
+				let token = jwt.sign(object, process.env.SECRET)
 				res.send({token: token})
 			})
 		}
