@@ -22,6 +22,10 @@ const User = mongoose.model('user', {
 		type: String,
 		default: 'https://cdn1.iconfinder.com/data/icons/social-black-buttons/512/anonymous-512.png',
 	},
+	likes: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'place'
+	}]
 })
 
 module.exports = User
