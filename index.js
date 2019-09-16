@@ -1,8 +1,9 @@
 const express = require('express')
+require('dotenv').config()
 const database = require('./database')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-require('dotenv').config()
+
 
 let app = express()
 app.use(cors({credentials: true}))
