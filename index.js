@@ -25,7 +25,7 @@ app.post('/types', require('./controllers/postType'))
 
 app.get('/users', require('./controllers/getUsers'))
 app.post('/users', require('./controllers/postUser'))
-app.patch('/users', require('./controllers/patchUser'))
+//app.patch('/users', require('./controllers/patchUser'))
 
 app.get('/amenities', require('./controllers/getAmenities'))
 app.post('/amenities', require('./controllers/postAmenities'))
