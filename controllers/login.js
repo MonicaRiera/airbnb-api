@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 
 module.exports = (req, res) => {
 
-	User.findOne({email: req.body.email}).select('name email password avatar location')
+	User.findOne({email: req.body.email}).select('name email password avatar location likes')
 	.then(data => {
 		if(data.password == req.body.password) {
 			let object = data.toObject()

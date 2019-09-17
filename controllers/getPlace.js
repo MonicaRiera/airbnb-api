@@ -21,7 +21,6 @@ module.exports = (req, res) => {
 		Review.find({place: place._id}).populate('author')
 		.lean()
 		.then(reviews => {
-			console.log(reviews)
 			place.reviews = reviews
 			if (reviews.length) {
 				let sum = 0

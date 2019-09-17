@@ -2,29 +2,28 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 
 module.exports = (req, res) => {
+
+	// verify token
 	let token = req.query.token
 	let user = jwt.verify(token, process.env.SECRET)
-
-	User.findById(user._id)
-	.then(data => {
-
+	// find user in db
+	User.findById(user._id).lean()
+	// user.likes
+	.then(user => {
+		let likes = user.likes.map(l => l.toString())
+		
 		if (req.body.place) {
-
-			let likes = data.likes
-
-			likes.includes(req.body.place) ?
-			likes.splice(likes.indexOf(req.body.place), 1) :
-			likes.push(req.body.place)
-
-			User.findByIdAndUpdate({_id: user._id}, {likes: likes})
-			.then(updatedUser => {
-				let object = updatedUser.toObject()
-				let token = jwt.sign(object, process.env.SECRET)
-				res.send({token: token})
-			})
+			 if (likes.includes(req.body.place)) {
+				 user.likes = user.likes.filter(l => l.toString() != req.body.place)
+			 } else {
+				 user.likes.push(req.body.place)
+			 }
 		}
 
+		User.findByIdAndUpdate(user._id, user, {new:true})
+		.then(updatedUser => {
+			res.send(updatedUser);
+		})
 	})
 	.catch(err => res.send(err))
-
 }
